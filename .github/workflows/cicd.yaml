@@ -22,3 +22,9 @@ jobs:
 
       - name: build
         run: mvn clean package
+      
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: springboot-app-jar
+          path: target/*.jar # Grabs whatever jar was created inside the target folder
