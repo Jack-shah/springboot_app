@@ -1,0 +1,39 @@
+at the very minimal we need a source code and pom.xml
+pom tells us what jdk and maven version we need to use to compiple this code
+
+compile  mean to  turn the code into machine readable format
+
+            The Difference Between Go and Java Packaging
+
+Think about your Go project. When you compiled your Go application, it generated a completely independent, native binary file. Everything needed to run the app was compiled down and packed tightly into that single file.
+
+Java does not work that way. When Maven compiles your Java files, it creates individual standard compiled blocks called .class files. When it packs them together into a standard .jar file, it is just a basic zip file full of unorganized code.If you try to run that standard file using java -jar, the Java runtime looks inside it, gets confused, and says: "Hey, this is just a pile of code. Where is the main starting door? I don't know who to execute first!"
+
+                                To solve this 
+
+In pom.xml we add a build plugin "spring-boot-maven-plugin"
+
+When we add this plugin, We are telling Maven to execute an advanced Repackaging Process.
+
+The plugin performs two crucial operations behind the scenes:
+
+1. It Writes the Manifest Map (The Starting Door)It creates a tiny hidden metadata file inside your jar package called MANIFEST.MF. 
+    Inside that file, it stamps one line explicitly:Main-Class: org.springframework.boot.loader.JarLauncherStart-Class: com.example.App
+    
+    This is the exact "Main Manifest Attribute" that your terminal was complaining about! Now, when you run java -jar, Java opens the package, reads that line, and instantly knows exactly how to boot up your server.
+
+2. It Creates a "Fat JAR" (Injects Tomcat Server) A standard Java file does not know how to handle web requests. It needs a web server like Tomcat. The plugin automatically pulls down the embedded Tomcat server libraries and injects them directly inside your .jar archive file.This creates what we call a "Fat JAR" or an Executable JAR—a single package that contains both your logic and the server itself, allowing it to deploy anywhere smoothly.
+
+build project mvn clean package done
+create docker file done
+create docker image done
+push docker image to github done
+create cluster done
+create k8s manifest files deployment,service, ingress done
+deploy the app and check if app accessible done
+create hellm chart package done
+again test if application working done
+automate  all these.... the CI part.
+
+
+
