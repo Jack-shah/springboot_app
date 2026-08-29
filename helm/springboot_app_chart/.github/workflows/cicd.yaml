@@ -1,16 +1,16 @@
-name: cicd
+name: cicd # Added 'name:' key here so GitHub knows the workflow name
 
 on:
   push:
     branches:
-    main
+      - main # Fixed: Added a dash (-) and proper indentation here
 
-#this part names and tell when to trigger the job
+jobs: # Fixed: You MUST declare the 'jobs:' block before listing your jobs
+  build: # Fixed: Added a colon (:) after the job name
+    runs-on: ubuntu-latest # Fixed: Added proper indentation under the job name
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4 # Recommendation: Upgraded to v4 (v3 is deprecated)
 
-build
-runs-on: ubuntu-latest
-  steps:
-    - name: checkout
-      uses: actions/checkout@v3
-    - name: build
-      run: mvn clean package
+      - name: build
+        run: mvn clean package
