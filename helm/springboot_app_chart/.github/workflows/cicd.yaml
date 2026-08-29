@@ -1,0 +1,16 @@
+name: cicd
+
+on:
+  push:
+    branches:
+    main
+
+#this part names and tell when to trigger the job
+
+build
+runs-on: ubuntu-latest
+  steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: build
+      run: mvn clean package

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app-deployment
+  labels:
+    app: springboot-app # 👈 Kept this uniform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springboot-app # 👈 This must match the template label below
+  template:
+    metadata:
+      labels:
+        app: springboot-app # 👈 This is what the pods are tagged with
+    spec:
+      containers:
+      - name: springboot-app
+        image: awajid3/springboot_app:v1
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SERVER_PORT
+          value: "8081"

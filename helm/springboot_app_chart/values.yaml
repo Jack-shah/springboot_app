@@ -1,0 +1,2 @@
+image:
+  tag: "v1" # 👈 String quotes added for safety with versioning
