@@ -33,7 +33,7 @@ create k8s manifest files deployment,service, ingress done
 deploy the app and check if app accessible done
 create hellm chart package done
 again test if application working done
-automate  all these.... the CI part.
+automate  all these.... the CI part
 
 
 
