@@ -114,3 +114,35 @@ Refactor your raw Kubernetes manifests into a reusable, parameterised Helm Chart
    git push origin main 
    ```
 4. **GITHUB ACTION**: check on github repo github action must be started 
+
+## 9. DEPLOYING TO K8S GITOPS ARGOCD
+1.  **Argocd Install**: install argocd on the minikube cluster.
+```bash
+   kubectl create namespace argocd
+   kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml   
+```
+2.  **Verify if resource of argocd running**: 
+```bash
+   kubectl get all --namespace argocd
+```
+3.  **Access the argicd server**: Use port forwarding .. on browser localhost:8083
+```bash
+   kubectl port-forward svc/argocd-server -n argocd 8083:443 --address 0.0.0.0
+```
+4.  **Login to argocd server on browser**: username admin and password from argocd secrets ..copy and decode
+```bash
+   kubectl get secrets -n argocd
+   kubectl edit secret argocd-initial-admin-secret -n argocd # copy from here
+   echo R0gtNU9MTEl5Y3B5R21Hbg== | base64 --decode
+```
+5.  **Project Create**: 
+   * `Application Name: go-web-app` (to manage application pods)
+   * `Project Name: default` (for internal routing)
+   * `Sync Policy: Set to Automatic and check SelfHeal` (for external access mapping)
+   * `Repository URL: https://github.comRevision: HEAD (or main)` Your github repo url
+   * `Path:` This is the folder containing your Helm chart).
+   * `Destination Cluster URL`  https://default.svc (This always points to the local cluster Argo CD is currently running inside).
+   * `Destination Namespace` default namespace where your app will run
+   
+
+

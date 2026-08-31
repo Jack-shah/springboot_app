@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: springboot-app
-        image: "awajid3/springboot_app:{{ .Values.image.tag }}" # 👈 Capital 'V' and clean spacing
+        image: "awajid3/springboot-app:{{ .Values.image.tag }}" # 👈 Capital 'V' and clean spacing
         ports:
         - containerPort: 8081
         env:
