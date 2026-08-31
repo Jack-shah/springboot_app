@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: springboot-app-deployment
   labels:
-    app: springboot-app # 👈 Kept this uniform
+    app: springboot-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: springboot-app # 👈 This must match the template label below
+      app: springboot-app
   template:
     metadata:
       labels:
-        app: springboot-app # 👈 This is what the pods are tagged with
+        app: springboot-app
     spec:
       containers:
       - name: springboot-app
-        image: awajid3/springboot_app:v1
+        image: "awajid3/springboot_app:{{ .Values.image.tag }}" # 👈 Capital 'V' and clean spacing
         ports:
         - containerPort: 8081
         env:
